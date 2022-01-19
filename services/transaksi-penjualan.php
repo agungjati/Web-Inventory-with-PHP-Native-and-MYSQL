@@ -10,11 +10,12 @@ function tambah($data)
 
     $no_faktur = $data["no_faktur"];
     $kode_barang = $data["kode_barang"];
+    $customer_id = $data["customer_id"];
     $tgl_transaksi = $data["tgl_transaksi"];
     $jumlah_jual = $data["jumlah_jual"];
     $jumlah_harga = $data["jumlah_harga"];
 
-    $query = "INSERT INTO transaksi_penjualan VALUES('', '" . $no_faktur . "', '" . $kode_barang . "', '" . $tgl_transaksi . "', '" . $jumlah_jual . "', '" . $jumlah_harga . "')";
+    $query = "INSERT INTO transaksi_penjualan VALUES('', '" . $no_faktur . "', '" . $kode_barang . "', '" . $customer_id . "', '" . $tgl_transaksi . "', '" . $jumlah_jual . "', '" . $jumlah_harga . "')";
 
     mysqli_query($con, $query);
 
@@ -37,6 +38,7 @@ function edit($data)
 
     $id = $data["id"];
     $kode_barang = $data["kode_barang"];
+    $customer_id = $data["customer_id"];
     $id_pemasok = $data["id_pemasok"];
     $nama_barang = $data["nama_barang"];
     $stok = $data["stok"];

@@ -4,6 +4,8 @@
 <?php
 
 $barang = query('SELECT * FROM barang');
+$customers = query('SELECT * FROM customers');
+
 if (isset($_GET['id'])) {
     $transaksi = query('SELECT * FROM transaksi_penjualan WHERE id="' . $_GET['id'] . '"')[0];
 } else {
@@ -11,6 +13,7 @@ if (isset($_GET['id'])) {
         "id" => '',
         "no_faktur" => '',
         "kode_barang" => '',
+        "customer_id" => '',
         "tgl_transaksi" => '',
         "jumlah_jual" => '',
         "jumlah_harga" => ''
@@ -41,6 +44,20 @@ if (isset($_GET['id'])) {
                                     </option>
                                 <?php endforeach; ?>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Customer</label>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <select class="form-control" name="customer_id" value="<?= $transaksi['customer_id']; ?>" style="width: 85%;">
+                                    <option>Pilih customer</option>
+                                    <?php foreach ($customers as $_customers) : ?>
+                                        <option <?= $_customers['id'] == $transaksi['customer_id'] ? 'selected' : ''; ?> value="<?= $_customers['id'] ?>">
+                                            <?= $_customers['name_customer'] . " (" . $_customers['email'] . ")" ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <button type="button" onclick="javascript:window.location.href = 'form_customer.php'" class="btn btn-primary btn-sm"> Tambah Customer</button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="stok">Stok Barang</label>

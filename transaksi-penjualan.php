@@ -6,13 +6,17 @@
 $transaksi = [];
 if (isset($_POST['cari'])) {
     $keyword = $_POST['keyword'];
-    $transaksi = query("SELECT transaksi_penjualan.id, transaksi_penjualan.no_faktur, transaksi_penjualan.kode_barang, transaksi_penjualan.tgl_transaksi, barang.nama_barang, jumlah_jual, jumlah_harga
-        FROM transaksi_penjualan LEFT JOIN barang ON barang.kode_barang = transaksi_penjualan.kode_barang WHERE 
+    $transaksi = query("SELECT transaksi_penjualan.id, transaksi_penjualan.no_faktur, name_customer, transaksi_penjualan.kode_barang, transaksi_penjualan.tgl_transaksi, barang.nama_barang, jumlah_jual, jumlah_harga
+        FROM transaksi_penjualan 
+        LEFT JOIN barang ON barang.kode_barang = transaksi_penjualan.kode_barang 
+        LEFT JOIN customers ON customers.id = transaksi_penjualan.customer_id WHERE 
         transaksi_penjualan.kode_barang LIKE '%$keyword%' OR 
         barang.nama_barang LIKE '%$keyword%' ");
 } else {
-    $transaksi = query("SELECT transaksi_penjualan.id, transaksi_penjualan.no_faktur, transaksi_penjualan.tgl_transaksi, transaksi_penjualan.kode_barang, barang.nama_barang, jumlah_jual, jumlah_harga
-                    FROM transaksi_penjualan LEFT JOIN barang ON barang.kode_barang = transaksi_penjualan.kode_barang");
+    $transaksi = query("SELECT transaksi_penjualan.id, transaksi_penjualan.no_faktur, name_customer, transaksi_penjualan.tgl_transaksi, transaksi_penjualan.kode_barang, barang.nama_barang, jumlah_jual, jumlah_harga
+                    FROM transaksi_penjualan 
+                    LEFT JOIN barang ON barang.kode_barang = transaksi_penjualan.kode_barang
+                    LEFT JOIN customers ON customers.id = transaksi_penjualan.customer_id");
 }
 
 if (isset($_GET['hapus'])) {
@@ -62,6 +66,7 @@ if (isset($_GET['hapus'])) {
                                     <th>No. Faktur</th>
                                     <th>Kode Barang</th>
                                     <th>Nama Barang</th>
+                                    <th>Nama Customer</th>
                                     <th>Tanggal</th>
                                     <th>Jumlah</th>
                                     <th>Total</th>
@@ -76,6 +81,7 @@ if (isset($_GET['hapus'])) {
                                         <td><?= $data['no_faktur'] ?></td>
                                         <td><?= $data['kode_barang'] ?></td>
                                         <td><?= $data['nama_barang'] ?></td>
+                                        <td><?= $data['name_customer'] ?></td>
                                         <td><?= $data['tgl_transaksi'] ?></td>
                                         <td><?= $data['jumlah_jual'] ?></td>
                                         <td><?= $data['jumlah_harga'] ?></td>

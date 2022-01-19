@@ -41,6 +41,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="customer.php" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>Customer</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="transaksi-penjualan.php" class="nav-link">
                             <i class="nav-icon fas fa-file-invoice"></i>
                             <p>Transaksi Penjualan</p>

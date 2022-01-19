@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Jan 2022 pada 13.18
+-- Waktu pembuatan: 19 Jan 2022 pada 18.27
 -- Versi server: 10.4.19-MariaDB
 -- Versi PHP: 7.3.28
 
@@ -42,8 +42,29 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `kode_barang`, `id_pemasok`, `nama_barang`, `stok`, `satuan`, `harga_barang`) VALUES
-(3, '1002', 1, 'Baut rc7', 11, 'pcs', 1000),
+(3, '1002', 1, 'Baut rc7', 10, 'pcs', 1000),
 (4, '1003', 2, 'Pilok warna merah muda', 5, 'lusin', 20000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `name_customer` varchar(50) NOT NULL,
+  `no_telpon` varchar(14) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `alamat_customer` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `customers`
+--
+
+INSERT INTO `customers` (`id`, `name_customer`, `no_telpon`, `email`, `alamat_customer`) VALUES
+(1, 'anita', '08080808', 'anita@gmail.com', 'Tiban a');
 
 -- --------------------------------------------------------
 
@@ -110,6 +131,7 @@ CREATE TABLE `transaksi_penjualan` (
   `id` int(11) NOT NULL,
   `no_faktur` varchar(50) NOT NULL,
   `kode_barang` varchar(50) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `tgl_transaksi` date NOT NULL,
   `jumlah_jual` int(11) NOT NULL,
   `jumlah_harga` double NOT NULL
@@ -119,9 +141,10 @@ CREATE TABLE `transaksi_penjualan` (
 -- Dumping data untuk tabel `transaksi_penjualan`
 --
 
-INSERT INTO `transaksi_penjualan` (`id`, `no_faktur`, `kode_barang`, `tgl_transaksi`, `jumlah_jual`, `jumlah_harga`) VALUES
-(2, 'INV1001', '1002', '2022-01-16', 1, 1000),
-(3, 'INV1002', '1002', '2022-01-16', 1, 1000);
+INSERT INTO `transaksi_penjualan` (`id`, `no_faktur`, `kode_barang`, `customer_id`, `tgl_transaksi`, `jumlah_jual`, `jumlah_harga`) VALUES
+(2, 'INV1001', '1002', 0, '2022-01-16', 1, 1000),
+(3, 'INV1002', '1002', 0, '2022-01-16', 1, 1000),
+(4, 'INV1003', '1002', 1, '2022-01-20', 1, 1000);
 
 --
 -- Trigger `transaksi_penjualan`
@@ -167,6 +190,12 @@ ALTER TABLE `barang`
   ADD KEY `id_pemasok` (`id_pemasok`);
 
 --
+-- Indeks untuk tabel `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `pemasok`
 --
 ALTER TABLE `pemasok`
@@ -201,6 +230,12 @@ ALTER TABLE `barang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT untuk tabel `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `pemasok`
 --
 ALTER TABLE `pemasok`
@@ -216,7 +251,7 @@ ALTER TABLE `transaksi_pembelian`
 -- AUTO_INCREMENT untuk tabel `transaksi_penjualan`
 --
 ALTER TABLE `transaksi_penjualan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
